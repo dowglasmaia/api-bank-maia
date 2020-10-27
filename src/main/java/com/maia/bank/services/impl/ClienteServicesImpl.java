@@ -31,7 +31,8 @@ public class ClienteServicesImpl implements ClienteServices {
 
 	@Override
 	public Cliente findById(Long id) {
-		return repo.findById(id).orElseThrow(() -> new RuntimeException("Cliente Não encontrado para o ID: " + id));
+		return repo.findById(id).orElseThrow(
+				() -> new RuntimeException("Cliente Não encontrado para o ID: " + id));
 	}
 
 	@Override
