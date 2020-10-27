@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.maia</groupId>
-	<artifactId>api-bank-maia</artifactId>
+	<artifactId>api-smart-bank-maia</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api-bank-maia</name>
 	<description>Demo project for Spring Boot</description>
