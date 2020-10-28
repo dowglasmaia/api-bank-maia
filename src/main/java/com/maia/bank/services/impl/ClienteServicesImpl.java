@@ -2,7 +2,6 @@ package com.maia.bank.services.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maia.bank.domain.Cliente;
@@ -10,13 +9,20 @@ import com.maia.bank.domain.dtos.NewClienteDTO;
 import com.maia.bank.repository.ClienteRepository;
 import com.maia.bank.services.ClienteServices;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ClienteServicesImpl implements ClienteServices {
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
+	
 	private ClienteRepository repo;
 
+	public ClienteServicesImpl(ClienteRepository repository) {
+		this.repo = repository;
+	}
+	
 	@Override
 	public Cliente save(Cliente entity) {
 		entity.setId(null);
