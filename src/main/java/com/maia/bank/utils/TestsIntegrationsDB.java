@@ -1,21 +1,39 @@
 package com.maia.bank.utils;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
+import com.maia.bank.domain.Banco;
 import com.maia.bank.domain.Cliente;
+import com.maia.bank.domain.Conta;
+import com.maia.bank.repository.BancoRepository;
 import com.maia.bank.services.ClienteServices;
+import com.maia.bank.services.ContaServices;
 
 @Service
 public class TestsIntegrationsDB {
 
 	@Autowired
 	private ClienteServices clienteServices;
+	
+	@Autowired
+	private ContaServices contaServices;
+	
+	@Autowired
+	private BancoRepository bancoRepo;
 
 	public void instanciateTestDatabase() throws ParseException {
 		
-		Cliente c1 = Cliente.builder()
+		Banco bc1 = Banco.builder()
+				.nome("Maya Bank")
+				.numero(00202)
+				.build();
+		bancoRepo.save(bc1);
+		
+		Cliente cl1 = Cliente.builder()
 				.nome("Dowglas Maia")
 				.cpf("66472775877")
 				.email("dowglasmaia@live.com")
@@ -25,7 +43,19 @@ public class TestsIntegrationsDB {
 				.build();
 		
 		
-		clienteServices.save(c1);
+		clienteServices.save(cl1);
+		
+		Conta ct1 = Conta.getInstance();
+		Random random = new Random();
+		long num =  random.nextInt(99999) * 10 ;			
+		
+		ct1.setBanco(bc1);
+		ct1.setCliente(cl1);
+		ct1.setNumero(000+num);
+		
+		contaServices.save(ct1);
+		
+		
 
 	}
 
