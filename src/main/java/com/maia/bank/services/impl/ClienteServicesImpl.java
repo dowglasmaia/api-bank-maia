@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maia.bank.domain.Cliente;
+import com.maia.bank.domain.dtos.NewClienteDTO;
 import com.maia.bank.repository.ClienteRepository;
 import com.maia.bank.services.ClienteServices;
 
@@ -43,6 +44,20 @@ public class ClienteServicesImpl implements ClienteServices {
 	@Override
 	public List<Cliente> findAll() {		
 		return repo.findAll();
+	}
+
+	@Override
+	public Cliente fromDTO(NewClienteDTO dto) {
+		Cliente entity = Cliente.builder()
+				.nome(dto.getNome())
+				.cpf(dto.getCpf())
+				.email(dto.getEmail())
+				.nomeDaMae(dto.getNomeDaMae())
+				.ddd(dto.getDdd())
+				.celular(dto.getCelular())
+				.build();
+				
+		return entity;
 	}
 
 }
