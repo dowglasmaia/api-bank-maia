@@ -1,4 +1,4 @@
-package com.maia.bank.repository;
+package com.maia.bank.repository.generic;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,9 +10,9 @@ import com.maia.bank.services.CrudServices;
 public abstract class CrudGeneric<T, PK extends Serializable> implements CrudServices<T, PK> {
 	private static final long serialVersionUID = 1L;
 
-	private JpaRepository<T, PK> repository;
+	private GenericRepository<T, PK> repository;
 
-	public CrudGeneric(JpaRepository<T, PK> repo) {
+	public CrudGeneric(GenericRepository<T, PK> repo) {
 		this.repository = repo;
 	}
 
@@ -34,7 +34,6 @@ public abstract class CrudGeneric<T, PK extends Serializable> implements CrudSer
 
 	@Override
 	public T findByParamName(String paramName) {
-
 		return null;
 	}
 
