@@ -37,7 +37,7 @@ public class Conta implements Serializable {
 
 	}
 
-	/* Singleton */
+	/*** Singleton ***/
 	public static Conta getInstance() {
 		if (instance == null) {
 			synchronized (Conta.class) {
@@ -61,9 +61,8 @@ public class Conta implements Serializable {
 		return numero;
 	}
 
-	public void setNumero() {		
-		Random random = new Random();
-		this.numero =  this.id + random.nextInt(99999) * 10 ;			
+	public void setNumero(Long numero) {
+		this.numero = numero;
 	}
 
 	public Banco getBanco() {
