@@ -1,4 +1,4 @@
-package com.maia.bank.services;
+package com.maia.bank.generic;
 
 import java.io.Serializable;
 import java.util.List;

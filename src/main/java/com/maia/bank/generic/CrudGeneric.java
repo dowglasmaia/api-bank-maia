@@ -1,11 +1,11 @@
-package com.maia.bank.repository.generic;
+package com.maia.bank.generic;
 
 import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.maia.bank.services.CrudServices;
+import com.maia.bank.services.exceptions.ObjectNotFoundExecption;
 
 public abstract class CrudGeneric<T, PK extends Serializable> implements CrudServices<T, PK> {
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public abstract class CrudGeneric<T, PK extends Serializable> implements CrudSer
 	@Override
 	public T findById(PK id) {
 		return repository.findById(id).orElseThrow(
-			()-> new RuntimeException( "Nenhum resultado foi encontrado para o ID" + id)	);
+			()-> new ObjectNotFoundExecption( "Nenhum resultado foi encontrado para o ID" + id)	);
 	}
 
 	@Override
