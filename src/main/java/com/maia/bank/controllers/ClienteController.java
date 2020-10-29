@@ -2,6 +2,7 @@ package com.maia.bank.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.maia.bank.domain.Cliente;
+import com.maia.bank.domain.dtos.ClienteDTO;
 import com.maia.bank.domain.dtos.NewClienteDTO;
 import com.maia.bank.services.ClienteServices;
 
@@ -36,15 +38,16 @@ public class ClienteController {
 	@PostMapping
 	public ResponseEntity<Void> createNewCliente(@Valid @RequestBody NewClienteDTO dto) {
 		Cliente entity = modelMapper.map(dto, Cliente.class);
-		entity = clienteServices.save(entity);
+			entity = clienteServices.save(entity);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Cliente>> obterTodosOsClietnes() {
-		List<Cliente> list = clienteServices.findAll();
+	public ResponseEntity<List<ClienteDTO>> obterTodosOsClietnes() {		
+		List<ClienteDTO> list = clienteServices.findAll()
+				.stream().map(obj -> new ClienteDTO(obj) ).collect(Collectors.toList());		
 		return ResponseEntity.ok().body(list);
 	}
 
