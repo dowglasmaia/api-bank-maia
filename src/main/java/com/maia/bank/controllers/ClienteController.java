@@ -8,21 +8,21 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.maia.bank.domain.Cliente;
+import com.maia.bank.domain.Conta;
 import com.maia.bank.domain.dtos.ClienteDTO;
 import com.maia.bank.domain.dtos.NewClienteDTO;
 import com.maia.bank.services.ClienteServices;
+import com.maia.bank.services.ContaServices;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -33,13 +33,19 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteServices clienteServices;
+	
+	@Autowired
+	private ContaServices contaServices;
 
-	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<Void> createNewCliente(@Valid @RequestBody NewClienteDTO dto) {
+	public ResponseEntity<Void> createNewClienteAndAccount(@Valid @RequestBody NewClienteDTO dto) {
+		
 		Cliente entity = modelMapper.map(dto, Cliente.class);
 			entity = clienteServices.save(entity);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
+		
+			Conta conta = contaServices.save(entity);			
+			
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(conta.getNumero()).toUri();				
 		return ResponseEntity.created(uri).build();
 
 	}
@@ -56,5 +62,7 @@ public class ClienteController {
 		Cliente result = clienteServices.findByParamName(cpf);
 		return ResponseEntity.ok().body(result);
 	}
+	
+	
 
 }

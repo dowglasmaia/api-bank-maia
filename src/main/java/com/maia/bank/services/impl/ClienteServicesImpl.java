@@ -15,10 +15,9 @@ public class ClienteServicesImpl extends CrudGeneric<Cliente,Long> implements Cl
 	
 	@Autowired
 	private ClienteRepository repository;
-
+	
 	public ClienteServicesImpl(ClienteRepository repo) {
-		super(repo);
-		this.repository = repo;		
+		super(repo);			
 	}
 	
 	@Override
@@ -26,5 +25,6 @@ public class ClienteServicesImpl extends CrudGeneric<Cliente,Long> implements Cl
 		return repository.findByCpf(cpf).orElseThrow( 
 				()-> new ObjectNotFoundExecption("Nenhum Cliente localizado para o CPF: " +cpf) );
 	}	
+
 
 }
