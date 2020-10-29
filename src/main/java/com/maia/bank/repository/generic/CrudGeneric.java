@@ -3,14 +3,16 @@ package com.maia.bank.repository.generic;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.maia.bank.services.CrudServices;
 
 public abstract class CrudGeneric<T, PK extends Serializable> implements CrudServices<T, PK> {
 	private static final long serialVersionUID = 1L;
 
-	private GenericRepository<T, PK> repository;
+	private JpaRepository<T, PK> repository;
 
-	public CrudGeneric(GenericRepository<T, PK> repo) {
+	public CrudGeneric(JpaRepository<T, PK> repo) {
 		this.repository = repo;
 	}
 
