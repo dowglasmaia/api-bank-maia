@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 /**
- * JPA Generico  }.
- *
+ * JPA Generico  . *
  * @author Dowglas Maia
  */
 
