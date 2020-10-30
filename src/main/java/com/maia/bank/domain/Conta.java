@@ -12,9 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
-@Data
 @Table
 @Entity
 public class Conta implements Serializable {
@@ -35,6 +35,9 @@ public class Conta implements Serializable {
 	@OneToOne
 	private Cliente cliente;
 
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
+	private Double saldo;
+
 	private Conta() {
 
 	}
@@ -51,4 +54,63 @@ public class Conta implements Serializable {
 		return instance;
 	}
 
+	public void setAddSaldo(Double valor) {
+		if (this.saldo != null) {
+			this.saldo += valor;
+		} else {
+			this.saldo = valor;
+		}
+	}
+
+	public void setRetirarSaldo(Double valor) {
+		if (this.saldo != null && this.saldo > 0.0 && this.saldo > valor) {			
+			this.saldo -= valor;
+		} else {
+			new RuntimeException("Você não possuir saldo disponivel em Conta para realizar esta operação.");
+		}
+	}
+
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Long numero) {
+		this.numero = numero;
+	}
+
+	public Banco getBanco() {
+		return banco;
+	}
+
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Double getSaldo() {
+		return saldo;
+	}
+
+	@Override
+	public String toString() {
+		return "Conta [id=" + id + ", numero=" + numero + ", banco=" + banco + ", cliente=" + cliente + ", saldo="
+				+ saldo + "]";
+	}
+	
 }

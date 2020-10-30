@@ -52,6 +52,7 @@ public class TestsIntegrationsDB {
 		ct1.setBanco(bc1);
 		ct1.setCliente(cl1);
 		ct1.setNumero(000+num);
+		ct1.setAddSaldo(500.0);
 		
 		contaServices.save(ct1);
 		
