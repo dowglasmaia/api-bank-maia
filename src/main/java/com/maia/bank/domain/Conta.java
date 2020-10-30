@@ -1,7 +1,6 @@
 package com.maia.bank.domain;
 
 import java.io.Serializable;
-import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +38,7 @@ public class Conta implements Serializable {
 	private Double saldo;
 
 	private Conta() {
-
+		this.saldo = 0.0;
 	}
 
 	/*** Singleton ***/
@@ -55,22 +54,13 @@ public class Conta implements Serializable {
 	}
 
 	public void setAddSaldo(Double valor) {
-		if (this.saldo != null) {
-			this.saldo += valor;
-		} else {
-			this.saldo = valor;
-		}
+		this.saldo += valor;
 	}
 
 	public void setRetirarSaldo(Double valor) {
-		if (this.saldo != null && this.saldo > 0.0 && this.saldo > valor) {			
-			this.saldo -= valor;
-		} else {
-			new RuntimeException("Você não possuir saldo disponivel em Conta para realizar esta operação.");
-		}
+		this.saldo -= valor;
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -112,5 +102,5 @@ public class Conta implements Serializable {
 		return "Conta [id=" + id + ", numero=" + numero + ", banco=" + banco + ", cliente=" + cliente + ", saldo="
 				+ saldo + "]";
 	}
-	
+
 }
