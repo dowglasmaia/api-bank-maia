@@ -10,17 +10,17 @@ import com.maia.bank.domain.Banco;
 import com.maia.bank.domain.Cliente;
 import com.maia.bank.domain.Conta;
 import com.maia.bank.repository.BancoRepository;
-import com.maia.bank.services.ClienteServices;
-import com.maia.bank.services.ContaServices;
+import com.maia.bank.repository.ClienteRepository;
+import com.maia.bank.repository.ContaRepository;
 
 @Service
 public class TestsIntegrationsDB {
 
 	@Autowired
-	private ClienteServices clienteServices;
+	private ClienteRepository clienteServices;
 	
 	@Autowired
-	private ContaServices contaServices;
+	private ContaRepository contaServices;
 	
 	@Autowired
 	private BancoRepository bancoRepo;

@@ -11,9 +11,6 @@ public interface CrudServices<T, PK> extends Serializable {
 	@Transactional
 	T save(T entity);
 
-	@Transactional
-	T Update(T entity);
-
 	@Transactional(readOnly = true)
 	T findById(PK id);
 

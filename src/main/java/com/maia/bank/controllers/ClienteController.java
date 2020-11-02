@@ -57,9 +57,15 @@ public class ClienteController {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@GetMapping("/{cpf}")
-	public ResponseEntity<Cliente> obterClietnePorCPF(@PathVariable("cpf") String cpf) {
+	@GetMapping("/cpf/{cpf}")
+	public ResponseEntity<Cliente> obterClietnePorCPF(@PathVariable String cpf) {
 		Cliente result = clienteServices.findByParamName(cpf);
+		return ResponseEntity.ok().body(result);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Cliente> obterClietnePorID(@PathVariable Long id) {
+		Cliente result = clienteServices.findById(id);
 		return ResponseEntity.ok().body(result);
 	}
 	

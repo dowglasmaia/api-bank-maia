@@ -24,22 +24,22 @@ import com.maia.bank.services.exceptions.ValidationOperationExecption;
 public class ContaServicesImpl extends CrudGeneric<Conta, Long> implements ContaServices {
 	private static final long serialVersionUID = 1L;
 
-	private static Logger log = LoggerFactory.getLogger(ContaServicesImpl.class);
+	private ContaRepository repository;
 
+	private static Logger log = LoggerFactory.getLogger(ContaServicesImpl.class);
+	
 	@Autowired
 	private BancoRepository bancoRepository;
 
 	@Autowired
-	private ContaRepository repository;
-
-	@Autowired
 	private ClienteServices clienteServices;
-
+	
 	public ContaServicesImpl(ContaRepository repo) {
 		super(repo);
-
+		this.repository = repo;		
 	}
-
+	
+	
 	@Override
 	public Conta findByNumero(Long numConta) {
 		return repository.findAllByNumero(numConta)
@@ -75,7 +75,7 @@ public class ContaServicesImpl extends CrudGeneric<Conta, Long> implements Conta
 		log.info("conta " + conta.getNumero() + " passou na validação para realizar o saque.");
 
 		conta.setRetirarSaldo(data.getValorSaque());
-		conta = Update(conta);
+		conta = save(conta);
 
 		return conta;
 	}
