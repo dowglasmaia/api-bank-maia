@@ -1,7 +1,6 @@
 package com.maia.bank.domain;
 
 import java.io.Serializable;
-import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 @Table
 @Entity
@@ -33,8 +34,11 @@ public class Conta implements Serializable {
 	@OneToOne
 	private Cliente cliente;
 
-	private Conta() {
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
+	private Double saldo;
 
+	private Conta() {
+		this.saldo = 0.0;
 	}
 
 	/*** Singleton ***/
@@ -47,6 +51,14 @@ public class Conta implements Serializable {
 			}
 		}
 		return instance;
+	}
+
+	public void setAddSaldo(Double valor) {
+		this.saldo += valor;
+	}
+
+	public void setRetirarSaldo(Double valor) {
+		this.saldo -= valor;
 	}
 
 	public Long getId() {
@@ -81,29 +93,14 @@ public class Conta implements Serializable {
 		this.cliente = cliente;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public Double getSaldo() {
+		return saldo;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Conta other = (Conta) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public String toString() {
+		return "Conta [id=" + id + ", numero=" + numero + ", banco=" + banco + ", cliente=" + cliente + ", saldo="
+				+ saldo + "]";
 	}
 
 }

@@ -19,9 +19,31 @@ public class ResourcesExceptionHandle {
 				.message(e.getMessage())
 				.path(request.getRequestURI())
 				.build();
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
-				
-		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);		
+	}
+	
+	@ExceptionHandler(BalanceExecption.class)
+	public ResponseEntity<StandardError> balanceError(BalanceExecption e, HttpServletRequest request ){
+		StandardError err = StandardError.builder()
+				.timestamp(System.currentTimeMillis())
+				.status(HttpStatus.NOT_FOUND.value())
+				.error("Operação Falhou!")
+				.message(e.getMessage())
+				.path(request.getRequestURI())
+				.build();
+		return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(err);		
+	}
+	
+	@ExceptionHandler(ValidationOperationExecption.class)
+	public ResponseEntity<StandardError> operationFail(ValidationOperationExecption e, HttpServletRequest request ){
+		StandardError err = StandardError.builder()
+				.timestamp(System.currentTimeMillis())
+				.status(HttpStatus.NOT_FOUND.value())
+				.error("Error de Validação!")
+				.message(e.getMessage())
+				.path(request.getRequestURI())
+				.build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);		
 	}
 
 }

@@ -9,27 +9,24 @@ import com.maia.bank.services.exceptions.ObjectNotFoundExecption;
 
 public abstract class CrudGeneric<T, PK extends Serializable> implements CrudServices<T, PK> {
 	private static final long serialVersionUID = 1L;
-
-	private JpaRepository<T, PK> repository;
-
-	public CrudGeneric(JpaRepository<T, PK> repo) {
+	
+	private JpaRepository<T, PK> repository;	
+	
+	public CrudGeneric(JpaRepository<T, PK> repo ) {
 		this.repository = repo;
+		
 	}
-
+	
 	@Override
 	public T save(T entity) {
 		return repository.save(entity);
 	}
 
-	@Override
-	public T Update(T entity) {
-		return repository.save(entity);
-	}
 
 	@Override
 	public T findById(PK id) {
 		return repository.findById(id).orElseThrow(
-			()-> new ObjectNotFoundExecption( "Nenhum resultado foi encontrado para o ID" + id)	);
+			()-> new ObjectNotFoundExecption( "Nenhum resulatdoo encontrado para o ID" + id)	);
 	}
 
 	@Override

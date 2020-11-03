@@ -20,11 +20,13 @@ import com.maia.bank.services.impl.ClienteServicesImpl;
 @ActiveProfiles("tests")
 public class ClienteServicesTests {
 	
-	
+
 	ClienteServices clienteServices;
 	
 	@MockBean
 	ClienteRepository repository;
+	
+	Cliente entity;
 	
 	@BeforeEach
 	public void setUp() {
